@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
 #Telegram
-telegramToken = ''
+telegramToken = '502817073:AAGzlHYifcRQfIyf1I8qKaHFUFlqkEHpiso'
