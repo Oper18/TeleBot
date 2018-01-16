@@ -4,7 +4,7 @@ import sqlite3
 
 result = 'FAIL'
 
-nameDB = ''
+nameDB = 'botDB'
 
 connect = sqlite3.connect(nameDB)
 

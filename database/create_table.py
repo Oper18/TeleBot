@@ -2,7 +2,7 @@
 
 import sqlite3
 
-nameDB = ''
+nameDB = 'botDB'
 
 connect = sqlite3.connect(nameDB)
 
