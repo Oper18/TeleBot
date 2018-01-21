@@ -2,7 +2,7 @@
 
 import sqlite3
 
-nameDB = 'botDB'
+nameDB = '/home/data/documents/python/app_bot/TeleBot/database/botDB'
 
 connect = sqlite3.connect(nameDB)
 

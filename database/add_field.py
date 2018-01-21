@@ -4,16 +4,22 @@ import sqlite3
 
 result = 'FAIL'
 
-nameDB = 'botDB'
+nameDB = '/home/data/documents/python/app_bot/TeleBot/database/botDB'
 
-connect = sqlite3.connect(nameDB)
-
-cursor = connect.cursor()
+# connect = sqlite3.connect(nameDB)
+#
+# cursor = connect.cursor()
 
 def Specialization(nameSpec):
+    connect = sqlite3.connect(nameDB)
+    cursor = connect.cursor()
     cursor.execute("INSERT INTO specializations VALUES (NULL, ?)", (nameSpec,))
+    connect.commit()
+    connect.close()
 
 def Profession(nameProf, nameSpec):
+    connect = sqlite3.connect(nameDB)
+    cursor = connect.cursor()
     cursor.execute("SELECT * FROM specializations")
     specID = cursor.fetchall()
     for i in range(len(specID)):
@@ -21,9 +27,13 @@ def Profession(nameProf, nameSpec):
             cursor.execute("INSERT INTO professions VALUES (NULL, ?, ?)", (nameProf, specID[i],))
             result = 'OK'
             break
+    connect.commit()
+    connect.close()
     return result
 
 def Users(nameUser, contact, nameProf):
+    connect = sqlite3.connect(nameDB)
+    cursor = connect.cursor()
     cursor.execute("SELECT * FROM professions")
     profID = cursor.fetchall()
     for i in range(len(profID)):
@@ -31,9 +41,13 @@ def Users(nameUser, contact, nameProf):
             cursor.execute("INSERT INTO users VALUES (NULL, ?, ?, ?)", (nameUser, contact, profID[i],))
             result = 'OK'
             break
+    connect.commit()
+    connect.close()
     return result
 
 def Problems(nameProblem, textProblem, nameUser, nameSpec):
+    connect = sqlite3.connect(nameDB)
+    cursor = connect.cursor()
     cursor.execute("SELECT * FROM users")
     userID = cursor.fetchall()
     for i in range(len(userID)):
@@ -46,4 +60,6 @@ def Problems(nameProblem, textProblem, nameUser, nameSpec):
                         specID[j], textProblem,))
                     result = 'OK'
                     break
+    connect.commit()
+    connect.close()
     return result
