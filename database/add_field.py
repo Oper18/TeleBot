@@ -24,7 +24,7 @@ def Profession(nameProf, nameSpec):
     specID = cursor.fetchall()
     for i in range(len(specID)):
         if specID[i][1] == nameSpec:
-            cursor.execute("INSERT INTO professions VALUES (NULL, ?, ?)", (nameProf, specID[i],))
+            cursor.execute("INSERT INTO professions VALUES (NULL, ?, ?)", (nameProf, specID[i][0],))
             result = 'OK'
             break
     connect.commit()
