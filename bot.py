@@ -19,23 +19,32 @@ def sendMessage(message):
     UserBut = types.KeyboardButton(text = 'Список пользователей')
     keyboard.add(TaskBut, UserBut)
     bot.send_message(message.chat.id, HelloText, reply_markup = keyboard)
-    print(message.chat.id)
 
 @bot.message_handler(func = lambda message: True, content_types = ['text'])
 def Answer(message):
     # bot.reply_to(message, message.text)
     buttons = []
-    select_field.SelectProfessions()
-    for i in range(len(select_field.ProfID)):
-        buttons.append('')
+    for i in range(len(config.buttonsProf)):
+        buttons.append('Button'+str(i))
+    for i in range(len(buttons)):
+        buttons[i] = types.KeyboardButton(text= '{}'.format(config.buttonsProf[i]))
     keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
-    NewBut = types.KeyboardButton(text = 'Здесь будет продолжение дерева')
     BackBut = types.KeyboardButton(text = 'Назад')
     ToStartBut = types.KeyboardButton(text = 'В начало')
-    keyboard.add(NewBut, ToStartBut, BackBut)
+    for i in range(len(buttons)):
+        keyboard.add(buttons[i])
+    keyboard.add(ToStartBut, BackBut)
     bot.send_message(message.chat.id, message.text, reply_markup = keyboard)
     if message.text == 'В начало':
         sendMessage(message)
+    if message.text == 'Назад':
+        sendMessage(message)
+    if message.text != 'В начало' or message.text != 'Назад':
+        UserList(message.text)
+
+def UserList(message):
+    print(config.callDatabase(message))
+    # bot.reply_to(message, select_field.SelectUsers())
 
 if __name__ == '__main__':
     bot.polling(none_stop = True)

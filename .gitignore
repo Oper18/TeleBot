@@ -1,3 +1,4 @@
 database/test.py
-.idea/vcs.xml
+.idea/
 database/botDB
+database/__pycache__
