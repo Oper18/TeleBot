@@ -18,7 +18,7 @@ def sendMessage(message):
     TaskBut = types.KeyboardButton(text = 'Задачи')
     UserBut = types.KeyboardButton(text = 'Список пользователей')
     keyboard.add(TaskBut, UserBut)
-    bot.send_message(message.chat.id, HelloText, reply_markup = keyboard)
+    bot.send_message(message.chat.id, text = HelloText, reply_markup = keyboard)
 
 @bot.message_handler(func = lambda message: True, content_types = ['text'])
 def Answer(message):
@@ -43,7 +43,7 @@ def Answer(message):
         UserList(message.text)
 
 def UserList(message):
-    print(config.callDatabase(message))
+    pass
     # bot.reply_to(message, select_field.SelectUsers())
 
 if __name__ == '__main__':

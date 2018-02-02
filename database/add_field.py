@@ -32,13 +32,15 @@ def Profession(nameProf, nameSpec):
     return result
 
 def Users(nameUser, contact, nameProf):
+    result = 'FALSE from Users'
     connect = sqlite3.connect(nameDB)
     cursor = connect.cursor()
     cursor.execute("SELECT * FROM professions")
     profID = cursor.fetchall()
+    print(profID[0][1])
     for i in range(len(profID)):
         if profID[i][1] == nameProf:
-            cursor.execute("INSERT INTO users VALUES (NULL, ?, ?, ?)", (nameUser, contact, profID[i],))
+            cursor.execute("INSERT INTO users VALUES (NULL, ?, ?, ?)", (nameUser, contact, profID[i][1],))
             result = 'OK'
             break
     connect.commit()
