@@ -23,21 +23,6 @@ def SelectUsers():
 
     return answer
 
-# def SelectAllUsers():
-#     answer = []
-#     cursor.execute("SELECT * FROM users")
-#     userID = cursor.fetchall()
-#     if len(userID) != 0:
-#         for i in range(len(userID)):
-#             userID[i] = userID[i][1:]
-#             answer.append(['Имя: ', 'Контакты: ', 'Профессия: '])
-#             for j in range(len(userID[i])):
-#                 answer[i][j] = answer[i][j] + userID[i][j]
-#     else:
-#         answer = ['Специалистов не найдено']
-#
-#     return answer
-
 def SelectProblem():
     answer = []
     cursor.execute("SELECT * FROM problems")

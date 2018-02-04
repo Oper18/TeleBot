@@ -49,8 +49,7 @@ def UserList(message):
         for i in range(len(users)):
             if users[i][-1] == 'Профессия: {}'.format(message):
                 print(users[i])
-        print(config.Proffessions)
-        print(config.Specializaions)
+
     else:
         pass
     # bot.reply_to(message, select_field.SelectUsers())

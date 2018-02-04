@@ -13,3 +13,4 @@ for i in range(len(buttonsProf)):
 Users = select_field.SelectUsers()
 Proffessions = select_field.SelectProfessions()
 Specializaions = select_field.SelectSpecializations()
+Problems = select_field.SelectProblem()
