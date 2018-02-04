@@ -20,7 +20,7 @@ def sendMessage(message):
     keyboard.add(TaskBut, UserBut)
     bot.send_message(message.chat.id, text = HelloText, reply_markup = keyboard)
 
-@bot.message_handler(func = lambda message: True, content_types = ['text'])
+@bot.message_handler(content_types = ['text'])
 def Answer(message):
     # bot.reply_to(message, message.text)
     buttons = []
@@ -43,7 +43,16 @@ def Answer(message):
         UserList(message.text)
 
 def UserList(message):
-    pass
+    if message == 'Инженер':
+        users = config.Users
+        print(users)
+        for i in range(len(users)):
+            if users[i][-1] == 'Профессия: {}'.format(message):
+                print(users[i])
+        print(config.Proffessions)
+        print(config.Specializaions)
+    else:
+        pass
     # bot.reply_to(message, select_field.SelectUsers())
 
 if __name__ == '__main__':

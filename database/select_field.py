@@ -8,22 +8,7 @@ connect = sqlite3.connect(nameDB)
 
 cursor = connect.cursor()
 
-def SelectUsers(field):
-    answer = []
-    cursor.execute("SELECT * FROM users WHERE name='%s'" % field)
-    userID = cursor.fetchall()
-    if len(userID) != 0:
-        for i in range(len(userID)):
-            userID[i] = userID[i][1:]
-            answer.append(['Имя: ', 'Контакты: ', 'Профессия: '])
-            for j in range(len(userID[i])):
-                answer[i][j] = answer[i][j] + userID[i][j]
-    else:
-        answer = ['Специалистов не найдено']
-
-    return answer
-
-def SelectAllUsers():
+def SelectUsers():
     answer = []
     cursor.execute("SELECT * FROM users")
     userID = cursor.fetchall()
@@ -38,9 +23,24 @@ def SelectAllUsers():
 
     return answer
 
-def SelectProblem(field):
+# def SelectAllUsers():
+#     answer = []
+#     cursor.execute("SELECT * FROM users")
+#     userID = cursor.fetchall()
+#     if len(userID) != 0:
+#         for i in range(len(userID)):
+#             userID[i] = userID[i][1:]
+#             answer.append(['Имя: ', 'Контакты: ', 'Профессия: '])
+#             for j in range(len(userID[i])):
+#                 answer[i][j] = answer[i][j] + userID[i][j]
+#     else:
+#         answer = ['Специалистов не найдено']
+#
+#     return answer
+
+def SelectProblem():
     answer = []
-    cursor.execute("SELECT * FROM problems WHERE name='%s'" % field)
+    cursor.execute("SELECT * FROM problems")
     problemID = cursor.fetchall()
     if len(problemID) != 0:
         for i in range(len(problemID)):

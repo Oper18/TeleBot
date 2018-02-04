@@ -10,6 +10,6 @@ buttonsProf = select_field.SelectSpecializations()
 for i in range(len(buttonsProf)):
     buttonsProf[i] = buttonsProf[i][0]
 
-Users = select_field.SelectUsers('profession')
-
-Problems = select_field.SelectProblem('specialization')
+Users = select_field.SelectUsers()
+Proffessions = select_field.SelectProfessions()
+Specializaions = select_field.SelectSpecializations()
