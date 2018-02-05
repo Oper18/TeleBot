@@ -6,11 +6,16 @@ from database import select_field
 telegramToken = '502817073:AAGzlHYifcRQfIyf1I8qKaHFUFlqkEHpiso'
 
 #Buttons for menu
-buttonsProf = select_field.SelectSpecializations()
-for i in range(len(buttonsProf)):
-    buttonsProf[i] = buttonsProf[i][0]
 
 Users = select_field.SelectUsers()
 Proffessions = select_field.SelectProfessions()
 Specializaions = select_field.SelectSpecializations()
 Problems = select_field.SelectProblem()
+
+buttonsSpec = Specializaions
+for i in range(len(buttonsSpec)):
+    buttonsSpec[i] = buttonsSpec[i][0]
+
+buttonsProf = Proffessions
+for i in range(len(buttonsProf)):
+    buttonsProf[i] = buttonsProf[i][0]
