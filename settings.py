@@ -25,9 +25,11 @@ def Buttons(message, buttonsList, messageText):
         buttons.append('Button' + str(i))
     for i in range(len(buttons)):
         buttons[i] = types.KeyboardButton(text = '{}'.format(buttonsList[i]))
+    addBut = types.KeyboardButton(text = 'Создать задачу')
     backBut = types.KeyboardButton(text = 'Назад')
     toStartBut = types.KeyboardButton(text = 'В начало')
     keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
+    keyboard.add(addBut)
     for i in range(len(buttons)):
         keyboard.add(buttons[i])
     keyboard.add(backBut, toStartBut)

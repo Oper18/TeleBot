@@ -13,8 +13,11 @@ def Start(message):
 
 @bot.message_handler(content_types = ['text'])
 def FirstStep(message):
-    messageText = 'Sieg'
-    settings.Buttons(message, config.buttonsSpec, messageText)
+    if message.text == 'Задачи':
+        messageText = 'Создай задачу или выбери интересующую профессию, чтобы увидеть список задач'
+        settings.Buttons(message, config.buttonsSpec, messageText)
+    else:
+        bot.send_message(message.chat.id, 'stay there')
 
 if __name__ == '__main__':
     bot.polling(none_stop = True)
