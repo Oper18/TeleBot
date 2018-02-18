@@ -19,13 +19,29 @@ def Start(message):
     keyboard.add(TaskBut, UserBut)
     bot.send_message(message.chat.id, text = HelloText, reply_markup = keyboard)
 
-def Buttons(message, buttonsList, messageText):
+def Buttons(message, buttonsList, messageText, firstButton):
     buttons = []
     for i in range(len(buttonsList)):
         buttons.append('Button' + str(i))
     for i in range(len(buttons)):
         buttons[i] = types.KeyboardButton(text = '{}'.format(buttonsList[i]))
-    addBut = types.KeyboardButton(text = 'Создать задачу')
+    addBut = types.KeyboardButton(text = firstButton)
+    backBut = types.KeyboardButton(text = 'Назад')
+    toStartBut = types.KeyboardButton(text = 'В начало')
+    keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
+    keyboard.add(addBut)
+    for i in range(len(buttons)):
+        keyboard.add(buttons[i])
+    keyboard.add(backBut, toStartBut)
+    bot.send_message(message.chat.id, text = messageText, reply_markup = keyboard)
+
+def AddNew(message, buttonsList, messageText, firstButton, variant = None):
+    buttons = []
+    for i in range(len(buttonsList)):
+        buttons.append('Button' + str(i))
+    for i in range(len(buttons)):
+        buttons[i] = types.KeyboardButton(text = '{}'.format(buttonsList[i]))
+    addBut = types.KeyboardButton(text = firstButton)
     backBut = types.KeyboardButton(text = 'Назад')
     toStartBut = types.KeyboardButton(text = 'В начало')
     keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
