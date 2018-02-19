@@ -26,8 +26,9 @@ except:
 #Create users table with reference to profession
 try:
 cursor.execute('''CREATE TABLE users
-                    (id INTEGER PRIMARY KEY AUTOINCREMENT, name text NOT NULL, contact text NOT NULL,
-                    profession int NOT NULL, FOREIGN KEY (profession) REFERENCES professions (id))''')
+                    (id INTEGER PRIMARY KEY AUTOINCREMENT, chatid INTEGER NOT NULL, name text NOT NULL,
+                    contact text NOT NULL, profession int NOT NULL, 
+                    FOREIGN KEY (profession) REFERENCES professions (id))''')
 except:
     print('Table was created earlier')
 

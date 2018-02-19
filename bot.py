@@ -3,7 +3,7 @@
 import config, settings
 import telebot, eventlet, logging, requests
 from telebot import TeleBot, types
-from database import select_field
+from database import select_field, add_field
 
 bot = telebot.TeleBot(config.telegramToken)
 previousStep = str()
@@ -27,9 +27,20 @@ def FirstStep(message):
         settings.Buttons(message, config.buttonsSpec, messageText, 'Зарегестрироваться')
 
     elif message.text == 'Создать задачу':
-        messageText = 'Выбери специальность для задачи. Если не знаешь куда отнести задачу, нажми "Пропустить"'
-        previousStep = 'Создать задачу'
-        settings.AddNew(message, config.buttonsSpec, messageText, 'Пропустить')
+        result = 'FAIL'
+        for i in range(len(select_field.SelectUsersChatId())):
+            if message.chat.id in select_field.SelectUsersChatId()[i]:
+                result = 'OK'
+
+        if result == 'OK':
+            messageText = 'Выбери специальность для задачи. Если не знаешь куда отнести задачу, нажми "Пропустить"'
+            previousStep = 'Создать задачу'
+            settings.AddNew(message, config.buttonsSpec, messageText, 'Пропустить')
+
+        else:
+           messageText = 'Создавать задачи могут только зарегистрированные пользователи. Зарегистрируйся'
+            previousStep = 'Зарегистрироаться'
+            #To next tests need to add add user step!!!
 
     elif previousStep == 'Создать задачу':
         messageText = 'Напиши название и с новой строки текст задачи одним сообщением'
@@ -40,7 +51,6 @@ def FirstStep(message):
         bot.send_message(message.chat.id, text = messageText, reply_markup = keyboard)
         previousStep = 'Создать задачу в специальности'
         problemSpec = message.text
-        print(problemSpec)
 
     elif previousStep == 'Создать задачу в специальности':
         print(problemSpec)
@@ -57,6 +67,13 @@ def FirstStep(message):
         textProblem = message.text[i + 1:]
         print('nameProblem {}'.format(nameProblem))
         print('textProblem {}'.format(textProblem))
+        
+        for i in range(len(select_field.SelectUsersChatId())):
+            if message.chat.id in select_field.SelectUsersChatId()[i]:
+                nameUser = select_field.SelectUsersChatId()[i][2]
+                break
+
+        add_field.Problems(nameProblem, textProblem, nameUser, problemSpec)
 
     else:
         bot.send_message(message.chat.id, 'Не выебывайся, жми на кнопки!')

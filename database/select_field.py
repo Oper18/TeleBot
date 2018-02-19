@@ -14,7 +14,7 @@ def SelectUsers():
     userID = cursor.fetchall()
     if len(userID) != 0:
         for i in range(len(userID)):
-            userID[i] = userID[i][1:]
+            userID[i] = userID[i][2:]
             answer.append(['Имя: ', 'Контакты: ', 'Профессия: '])
             for j in range(len(userID[i])):
                 answer[i][j] = answer[i][j] + userID[i][j]
@@ -22,6 +22,15 @@ def SelectUsers():
         answer = ['Специалистов не найдено']
 
     return answer
+
+def SelectUsersChatId():
+    answer = []
+    cursor.execute("SELECT * FROM users")
+    userID = cursor.fetchall()
+    for i in range(len(userID)):
+        userID[i] = userID[i][0:3]
+
+    return userID
 
 def SelectProblem():
     answer = []
