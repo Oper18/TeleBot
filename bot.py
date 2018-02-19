@@ -15,7 +15,7 @@ def Start(message):
 
 @bot.message_handler(content_types = ['text'])
 def FirstStep(message):
-    global previousStep
+    global previousStep, problemSpec
 
     if message.text == 'Задачи':
         messageText = 'Создай задачу или выбери интересующую профессию, чтобы увидеть список задач'
@@ -38,6 +38,12 @@ def FirstStep(message):
         keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
         keyboard.add(backBut, toStartBut)
         bot.send_message(message.chat.id, text = messageText, reply_markup = keyboard)
+        previousStep = 'Создать задачу в специальности'
+        problemSpec = message.text
+        print(problemSpec)
+
+    elif previousStep == 'Создать задачу в специальности':
+        print(problemSpec)
         bot.message_handler(content_types = ['text'])
         i = 0
         nameProblem = str()
@@ -48,9 +54,9 @@ def FirstStep(message):
             else:
                 nameProblem = nameProblem + message.text[i]
                 i = i + 1
-        textProblem = message.text[i:]
-        print(nameProblem)
-        print(textProblem)
+        textProblem = message.text[i + 1:]
+        print('nameProblem {}'.format(nameProblem))
+        print('textProblem {}'.format(textProblem))
 
     else:
         bot.send_message(message.chat.id, 'Не выебывайся, жми на кнопки!')
