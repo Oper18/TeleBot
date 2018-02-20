@@ -54,9 +54,9 @@ def SelectProblem():
 def SelectSpecializations():
     cursor.execute("SELECT * FROM specializations")
     specID = cursor.fetchall()
-    if len(specID) != 0:
-        for i in range(len(specID)):
-            specID[i] = specID[i][1:]
+    # if len(specID) != 0:
+    #     for i in range(len(specID)):
+    #         specID[i] = specID[i][1:]
     return specID
 
 def SelectProfessions():

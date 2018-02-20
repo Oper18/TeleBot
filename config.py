@@ -14,7 +14,7 @@ Problems = select_field.SelectProblem()
 
 buttonsSpec = Specializaions
 for i in range(len(buttonsSpec)):
-    buttonsSpec[i] = buttonsSpec[i][0]
+    buttonsSpec[i] = buttonsSpec[i][1]
 
 buttonsProf = Proffessions
 for i in range(len(buttonsProf)):

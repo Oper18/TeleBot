@@ -38,8 +38,9 @@ def FirstStep(message):
             settings.AddNew(message, config.buttonsSpec, messageText, 'Пропустить')
 
         else:
-           messageText = 'Создавать задачи могут только зарегистрированные пользователи. Зарегистрируйся'
-            previousStep = 'Зарегистрироаться'
+            messageText = 'Создавать задачи могут только зарегистрированные пользователи. Зарегистрируйся'
+            previousStep = 'Зарегистрироваться'
+            bot.send_message(message.chat.id, text = messageText)
             #To next tests need to add add user step!!!
 
     elif previousStep == 'Создать задачу':
@@ -67,13 +68,23 @@ def FirstStep(message):
         textProblem = message.text[i + 1:]
         print('nameProblem {}'.format(nameProblem))
         print('textProblem {}'.format(textProblem))
-        
+
         for i in range(len(select_field.SelectUsersChatId())):
             if message.chat.id in select_field.SelectUsersChatId()[i]:
                 nameUser = select_field.SelectUsersChatId()[i][2]
                 break
 
+        for i in range(len(config.Specializaions)):
+            if problemSpec in config.Specializaions[i]:
+                problemSpec = config.Specializaions[i][0]
+                break
+
         add_field.Problems(nameProblem, textProblem, nameUser, problemSpec)
+
+    elif previousStep == 'Зарегистрироваться':
+        bot.message_handler(content_types = ['text'])
+        add_field.Users(message.chat.id, nameUser, contact, proffession)
+        #Register user
 
     else:
         bot.send_message(message.chat.id, 'Не выебывайся, жми на кнопки!')
