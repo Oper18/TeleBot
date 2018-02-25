@@ -3,7 +3,7 @@
 import config, settings
 import telebot, eventlet, logging, requests
 from telebot import TeleBot, types
-from database import select_field, add_field
+from database import add_field
 
 bot = telebot.TeleBot(config.telegramToken)
 previousStep = str()
@@ -28,8 +28,8 @@ def FirstStep(message):
 
     elif message.text == 'Создать задачу':
         result = 'FAIL'
-        for i in range(len(select_field.SelectUsersChatId())):
-            if message.chat.id in select_field.SelectUsersChatId()[i]:
+        for i in range(len(config.ChatId)):
+            if message.chat.id in config.ChatId[i]:
                 result = 'OK'
 
         if result == 'OK':
