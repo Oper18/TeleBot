@@ -11,6 +11,7 @@ Users = select_field.SelectUsers()
 Proffessions = select_field.SelectProfessions()
 Specializaions = select_field.SelectSpecializations()
 Problems = select_field.SelectProblem()
+ChatId = select_field.SelectUsersChatId()
 
 buttonsSpec = Specializaions
 for i in range(len(buttonsSpec)):

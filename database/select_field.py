@@ -29,8 +29,9 @@ def SelectUsersChatId():
     userID = cursor.fetchall()
     for i in range(len(userID)):
         userID[i] = userID[i][0:3]
+        answe.append(userID[i])
 
-    return userID
+    return answer
 
 def SelectProblem():
     answer = []

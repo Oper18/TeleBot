@@ -17,7 +17,7 @@ except:
 
 #Create profession table with reference to specialization
 try:
-cursor.execute('''CREATE TABLE professions
+    cursor.execute('''CREATE TABLE professions
                     (id INTEGER PRIMARY KEY AUTOINCREMENT, name text NOT NULL, specialization int NOT NULL,
                     FOREIGN KEY (specialization) REFERENCES specializations (id))''')
 except:
@@ -25,7 +25,7 @@ except:
 
 #Create users table with reference to profession
 try:
-cursor.execute('''CREATE TABLE users
+    cursor.execute('''CREATE TABLE users
                     (id INTEGER PRIMARY KEY AUTOINCREMENT, chatid INTEGER NOT NULL, name text NOT NULL,
                     contact text NOT NULL, profession int NOT NULL, 
                     FOREIGN KEY (profession) REFERENCES professions (id))''')
@@ -34,7 +34,7 @@ except:
 
 #Create problem table with reference to specialization and user
 try:
-cursor.execute('''CREATE TABLE problems
+    cursor.execute('''CREATE TABLE problems
                     (id INTEGER PRIMARY KEY AUTOINCREMENT, name text NOT NULL, user int NOT NULL,
                     specialization int NOT NULL, problem text NOT NULL, FOREIGN KEY (user) REFERENCES users (id),
                     FOREIGN KEY (specialization) REFERENCES specializations (id))''')
