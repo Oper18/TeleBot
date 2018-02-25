@@ -28,10 +28,14 @@ def FirstStep(message):
 
     elif message.text == 'Создать задачу':
         result = 'FAIL'
+        print('1')
         for i in range(len(config.ChatId)):
+            print('cycle')
             if message.chat.id in config.ChatId[i]:
+                print(config.ChatId[i])
                 result = 'OK'
-
+                break
+        print('2')
         if result == 'OK':
             messageText = 'Выбери специальность для задачи. Если не знаешь куда отнести задачу, нажми "Пропустить"'
             previousStep = 'Create problem'
@@ -39,8 +43,13 @@ def FirstStep(message):
 
         else:
             messageText = 'Создавать задачи могут только зарегистрированные пользователи. Зарегистрируйся'
+            keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
+            RegBut = types.KeyboardButton(text = 'Зарегестрироваться')
+            BackBut = types.KeyboardButton(text = 'Назад')
+            ToStartBut = types.KeyboardButton(text = 'В начало')
+            keyboard.add(RegBut, BackBut, ToStartBut)
             previousStep = 'Register'
-            bot.send_message(message.chat.id, text = messageText)
+            bot.send_message(message.chat.id, text = messageText, reply_markup = keyboard)
             #To next tests need to add add user step!!!
 
     elif previousStep == 'Create problem':
@@ -78,7 +87,7 @@ def FirstStep(message):
 
         add_field.Problems(nameProblem, textProblem, nameUser, problemSpec)
 
-    elif previousStep == 'Register':
+    elif message.text == 'Зарегестрироваться':
         bot.message_handler(content_types = ['text'])
         messageText = 'Введи свое имя'
         previousStep = 'Name'
@@ -88,17 +97,20 @@ def FirstStep(message):
     elif previousStep == 'Name':
         bot.message_handler(content_types = ['text'])
         messageText = 'Введи свой username начиная с @'
-        while message.text[0] != '@':
-            bot.send_message(message.chat.id, text = 'Делай как написано, не будь оленем!')
+        # while message.text[0] != '@':
+        #     bot.send_message(message.chat.id, text = 'Делай как написано, не будь оленем!')
         previousStep = 'Contact'
         contact = message.text
         bot.send_message(message.chat.id, text = messageText)
 
     elif previousStep == 'Contact':
+        bot.message_handler(content_types = ['text'])
         messageText = 'Выбери профессию'
         settings.Buttons(message, config.buttonsProf, messageText, 'Нет профессии')
         profession = message.text
-        previousStep = str()
+        previousStep = 'add'
+
+    elif previousStep == 'add':
         add_field.Users(message.chat.id, nameUser, contact, profession)
         Start(message)
 

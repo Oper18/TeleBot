@@ -37,7 +37,6 @@ def Users(chatid, nameUser, contact, nameProf):
     cursor = connect.cursor()
     cursor.execute("SELECT * FROM professions")
     profID = cursor.fetchall()
-    print(profID[0][1])
     for i in range(len(profID)):
         if profID[i][1] == nameProf:
             cursor.execute("INSERT INTO users VALUES (NULL, ?, ?, ?, ?)", (chatid, nameUser, contact, profID[i][1],))
