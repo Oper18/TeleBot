@@ -6,7 +6,6 @@ from database import select_field
 telegramToken = '502817073:AAGzlHYifcRQfIyf1I8qKaHFUFlqkEHpiso'
 
 #Buttons for menu
-
 Users = select_field.SelectUsers()
 Proffessions = select_field.SelectProfessions()
 Specializaions = select_field.SelectSpecializations()

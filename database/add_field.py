@@ -18,6 +18,7 @@ def Specialization(nameSpec):
     connect.close()
 
 def Profession(nameProf, nameSpec):
+    result = 'FAIL'
     connect = sqlite3.connect(nameDB)
     cursor = connect.cursor()
     cursor.execute("SELECT * FROM specializations")

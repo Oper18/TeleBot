@@ -11,6 +11,18 @@ HelloText = 'Приветствую тебя! Зарегестрируйся д�
             'Другие участники иогут видеть специальность и контакты только зарегистрированных пользователей.'
 
 # @bot.message_handler(func = lambda message: True, content_types=["start"])
+def DetectUser(id):
+    result = 'FAIL'
+    print(config.FuncChatID())
+    print(config.Users)
+    for i in range(len(config.FuncChatID())):
+        print('cycle')
+        if id in config.FuncChatID()[i]:
+            result = 'OK'
+            break
+
+    return result
+
 def Start(message):
     # bot.send_message(message.chat.id, HelloText)
     keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
