@@ -48,18 +48,26 @@ def Users(chatid, nameUser, contact, nameProf):
     return result
 
 def Problems(nameProblem, textProblem, nameUser, nameSpec):
+    result = 'FAIL'
     connect = sqlite3.connect(nameDB)
     cursor = connect.cursor()
     cursor.execute("SELECT * FROM users")
     userID = cursor.fetchall()
+    print(userID)
+    print('step1')
     for i in range(len(userID)):
-        if userID[i][1] == nameUser:
+        print('cycle1')
+        print(nameUser)
+        if userID[i][2] == nameUser:
             cursor.execute("SELECT *FROM specializations")
             specID = cursor.fetchall()
+            print(specID)
+            print('nameUser')
+            print(nameSpec)
             for j in range(len(specID)):
                 if specID[j][1] == nameSpec:
-                    cursor.execute("INSERT INTO problems VALUES (NULL, ?, ?, ?, ?", (nameProblem, userID[i],
-                        specID[j], textProblem,))
+                    cursor.execute("INSERT INTO problems VALUES (NULL, ?, ?, ?, ?)", (nameProblem, userID[i][2],
+                        specID[j][0], textProblem,))
                     result = 'OK'
                     break
     connect.commit()

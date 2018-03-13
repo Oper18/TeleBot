@@ -18,10 +18,10 @@ telegramToken = '502817073:AAGzlHYifcRQfIyf1I8qKaHFUFlqkEHpiso'
 # Problems = select_field.SelectFieldClass().SelectProblem()
 # ChatId = select_field.SelectFieldClass().SelectUsersChatId()
 
-buttonsSpec = Specializaions
+buttonsSpec = select_field.SelectFieldClass().SelectSpecializations()
 for i in range(len(buttonsSpec)):
     buttonsSpec[i] = buttonsSpec[i][1]
 
-buttonsProf = Proffessions
+buttonsProf = select_field.SelectFieldClass().SelectProfessions()
 for i in range(len(buttonsProf)):
     buttonsProf[i] = buttonsProf[i][0]

@@ -41,21 +41,19 @@ def FirstStep(message):
         settings.Buttons(message, config.buttonsSpec, messageText, 'Зарегестрироваться')
 
     elif message.text == 'Создать задачу':
+        messageText = 'Выбери специальность для задачи. Если не знаешь куда отнести задачу, нажми "Пропустить"'
+        previousStep = 'Create problem'
+        settings.AddNew(message, config.buttonsSpec, messageText, 'Пропустить')
 
-        if result == 'OK':
-            messageText = 'Выбери специальность для задачи. Если не знаешь куда отнести задачу, нажми "Пропустить"'
-            previousStep = 'Create problem'
-            settings.AddNew(message, config.buttonsSpec, messageText, 'Пропустить')
-
-        else:
-            messageText = 'Создавать задачи могут только зарегистрированные пользователи. Зарегистрируйся'
-            keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
-            RegBut = types.KeyboardButton(text = 'Зарегестрироваться')
-            BackBut = types.KeyboardButton(text = 'Назад')
-            ToStartBut = types.KeyboardButton(text = 'В начало')
-            keyboard.add(RegBut, BackBut, ToStartBut)
-            previousStep = 'Register'
-            bot.send_message(message.chat.id, text = messageText, reply_markup = keyboard)
+        # else:
+        #     messageText = 'Создавать задачи могут только зарегистрированные пользователи. Зарегистрируйся'
+        #     keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
+        #     RegBut = types.KeyboardButton(text = 'Зарегестрироваться')
+        #     BackBut = types.KeyboardButton(text = 'Назад')
+        #     ToStartBut = types.KeyboardButton(text = 'В начало')
+        #     keyboard.add(RegBut, BackBut, ToStartBut)
+        #     previousStep = 'Register'
+        #     bot.send_message(message.chat.id, text = messageText, reply_markup = keyboard)
             #To next tests need to add add user step!!!
 
     elif previousStep == 'Create problem':
@@ -81,17 +79,17 @@ def FirstStep(message):
                 i = i + 1
         textProblem = message.text[i + 1:]
 
-        for i in range(len(select_field.SelectFieldClass.SelectUsersChatId())):
-            if message.chat.id in select_field.SelectFieldClass.SelectUsersChatId()[i]:
-                nameUser = select_field.SelectFieldClass.SelectUsersChatId()[i][2]
+        for i in range(len(select_field.SelectFieldClass().SelectUsersChatId())):
+            if message.chat.id in select_field.SelectFieldClass().SelectUsersChatId()[i]:
+                nameUser = select_field.SelectFieldClass().SelectUsersChatId()[i][2]
                 break
 
-        for i in range(len(select_field.SelectFieldClass.SelectSpecializations())):
-            if problemSpec in select_field.SelectFieldClass.SelectSpecializations()[i]:
-                problemSpec = select_field.SelectFieldClass.SelectSpecializations()[i][0]
+        for i in range(len(select_field.SelectFieldClass().SelectSpecializations())):
+            if problemSpec in select_field.SelectFieldClass().SelectSpecializations()[i]:
+                problemSpec = select_field.SelectFieldClass().SelectSpecializations()[i][1]
                 break
 
-        add_field.Problems(nameProblem, textProblem, nameUser, problemSpec)
+        print(add_field.Problems(nameProblem, textProblem, nameUser, problemSpec))
 
     elif message.text == 'Зарегестрироваться':
         bot.message_handler(content_types = ['text'])
