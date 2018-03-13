@@ -3,14 +3,19 @@
 import config, settings
 import telebot, eventlet, logging, requests
 from telebot import TeleBot, types
-from database import add_field
+from database import add_field, select_field
 
 bot = telebot.TeleBot(config.telegramToken)
 previousStep = str()
 
 @bot.message_handler(commands = ["start"])
 def Start(message):
-    result = settings.DetectUser(message.chat.id)
+    # result = select_field.SelectUsersChatId()
+    result = 'FAIL'
+    for i in range(len(select_field.SelectFieldClass().SelectUsersChatId())):
+        if message.chat.id in select_field.SelectFieldClass().SelectUsersChatId()[i]:
+            result = 'OK'
+            break
     if result == 'OK':
         print(message.chat.id)
         settings.Start(message)
@@ -76,14 +81,14 @@ def FirstStep(message):
                 i = i + 1
         textProblem = message.text[i + 1:]
 
-        for i in range(len(config.ChatId)):
-            if message.chat.id in config.ChatId[i]:
-                nameUser = config.ChatId[i][2]
+        for i in range(len(select_field.SelectFieldClass.SelectUsersChatId())):
+            if message.chat.id in select_field.SelectFieldClass.SelectUsersChatId()[i]:
+                nameUser = select_field.SelectFieldClass.SelectUsersChatId()[i][2]
                 break
 
-        for i in range(len(config.Specializaions)):
-            if problemSpec in config.Specializaions[i]:
-                problemSpec = config.Specializaions[i][0]
+        for i in range(len(select_field.SelectFieldClass.SelectSpecializations())):
+            if problemSpec in select_field.SelectFieldClass.SelectSpecializations()[i]:
+                problemSpec = select_field.SelectFieldClass.SelectSpecializations()[i][0]
                 break
 
         add_field.Problems(nameProblem, textProblem, nameUser, problemSpec)
