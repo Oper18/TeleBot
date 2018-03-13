@@ -43,7 +43,7 @@ def FirstStep(message):
     elif message.text == 'Создать задачу':
         messageText = 'Выбери специальность для задачи. Если не знаешь куда отнести задачу, нажми "Пропустить"'
         previousStep = 'Create problem'
-        settings.AddNew(message, config.buttonsSpec, messageText, 'Пропустить')
+        settings.AddNew(message, config.buttonsSpec, messageText)
 
         # else:
         #     messageText = 'Создавать задачи могут только зарегистрированные пользователи. Зарегистрируйся'
@@ -79,17 +79,23 @@ def FirstStep(message):
                 i = i + 1
         textProblem = message.text[i + 1:]
 
-        for i in range(len(select_field.SelectFieldClass().SelectUsersChatId())):
-            if message.chat.id in select_field.SelectFieldClass().SelectUsersChatId()[i]:
-                nameUser = select_field.SelectFieldClass().SelectUsersChatId()[i][2]
-                break
+        if len(nameProblem) > 1 and len(textProblem) > 1:
 
-        for i in range(len(select_field.SelectFieldClass().SelectSpecializations())):
-            if problemSpec in select_field.SelectFieldClass().SelectSpecializations()[i]:
-                problemSpec = select_field.SelectFieldClass().SelectSpecializations()[i][1]
-                break
+            for i in range(len(select_field.SelectFieldClass().SelectUsersChatId())):
+                if message.chat.id in select_field.SelectFieldClass().SelectUsersChatId()[i]:
+                    nameUser = select_field.SelectFieldClass().SelectUsersChatId()[i][2]
+                    break
 
-        print(add_field.Problems(nameProblem, textProblem, nameUser, problemSpec))
+            for i in range(len(select_field.SelectFieldClass().SelectSpecializations())):
+                if problemSpec in select_field.SelectFieldClass().SelectSpecializations()[i]:
+                    problemSpec = select_field.SelectFieldClass().SelectSpecializations()[i][1]
+                    break
+
+            print(add_field.Problems(nameProblem, textProblem, nameUser, problemSpec))
+
+        else:
+            bot.send_message(message.chat.id, text = 'Делай как написано, не будь оленем!')
+            previousStep == 'Create problem at spec'
 
     elif message.text == 'Зарегестрироваться':
         bot.message_handler(content_types = ['text'])

@@ -47,17 +47,18 @@ def Buttons(message, buttonsList, messageText, firstButton):
     keyboard.add(backBut, toStartBut)
     bot.send_message(message.chat.id, text = messageText, reply_markup = keyboard)
 
-def AddNew(message, buttonsList, messageText, firstButton, variant = None):
+def AddNew(message, buttonsList, messageText, firstButton = None, variant = None):
     buttons = []
     for i in range(len(buttonsList)):
         buttons.append('Button' + str(i))
     for i in range(len(buttons)):
         buttons[i] = types.KeyboardButton(text = '{}'.format(buttonsList[i]))
-    addBut = types.KeyboardButton(text = firstButton)
     backBut = types.KeyboardButton(text = 'Назад')
     toStartBut = types.KeyboardButton(text = 'В начало')
     keyboard = types.ReplyKeyboardMarkup(row_width = 2, resize_keyboard = True)
-    keyboard.add(addBut)
+    if firstButton is not None:
+        addBut = types.KeyboardButton(text = firstButton)
+        keyboard.add(addBut)
     for i in range(len(buttons)):
         keyboard.add(buttons[i])
     keyboard.add(backBut, toStartBut)
